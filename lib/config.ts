@@ -5,9 +5,7 @@ export const sidebarConfig: SidebarConfig = {
     { id: 'home', label: 'Home', href: '/', icon: 'Home' },
     { id: 'markets', label: 'Markets', href: '/markets', icon: 'BarChart3' },
     { id: 'leaderboard', label: 'Leaderboard', href: '/leaderboard', icon: 'Trophy' },
-    // { id: 'earn', label: 'Earn', href: '/earn', icon: 'DollarSign' },
-    { id: 'news', label: 'News', href: '/news', icon: 'Newspaper' },
-    // { id: 'integrations', label: 'Integrations', href: '/integrations', icon: 'Puzzle' }
+    { id: 'news', label: 'News', href: '/news', icon: 'Newspaper' }
   ],
   topics: [
     { id: 'crypto', label: 'Crypto', icon: '₿', color: '#f7931a' },

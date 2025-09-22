@@ -1,5 +1,4 @@
 import axios from 'axios';
-import * as cheerio from 'cheerio';
 import { CrawledContent, MarketSuggestion } from '@/types';
 
 interface DataSource {
@@ -117,39 +116,10 @@ export class ContentCrawler {
   }
 
   private async parseContentFromHtml(html: string, source: DataSource): Promise<CrawledContent[]> {
-    const $ = cheerio.load(html);
-    const articles: CrawledContent[] = [];
-
-    // Find article containers (this would need to be customized per source)
-    $('article, .article, .story').each((index, element) => {
-      try {
-        const $article = $(element);
-        
-        const title = $article.find(source.selectors.title).first().text().trim();
-        const description = $article.find(source.selectors.description).first().text().trim();
-        const imageUrl = $article.find(source.selectors.image).first().attr('src') || '';
-        const link = $article.find(source.selectors.link).first().attr('href') || '';
-        const dateStr = $article.find(source.selectors.date).first().attr('datetime') || 
-                       $article.find(source.selectors.date).first().text();
-
-        if (title && description) {
-          articles.push({
-            title,
-            description,
-            imageUrl: this.resolveImageUrl(imageUrl, source.baseUrl),
-            source: source.name,
-            category: '', // Will be set by caller
-            publishedAt: this.parseDate(dateStr),
-            url: this.resolveUrl(link, source.baseUrl),
-            confidence: this.calculateRelevance(title + ' ' + description, '')
-          });
-        }
-      } catch (err) {
-        console.error('Error parsing article:', err);
-      }
-    });
-
-    return articles;
+    // This method is currently not used as we're using mock data
+    // In a real implementation, this would parse HTML content with a library like cheerio
+    console.warn('parseContentFromHtml is not implemented for static builds');
+    return [];
   }
 
   private resolveImageUrl(imageUrl: string, baseUrl: string): string {

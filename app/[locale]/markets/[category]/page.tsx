@@ -1,13 +1,31 @@
-'use client';
-
-import { useParams } from 'next/navigation';
 import { useTranslations } from 'next-intl';
 import { ResponsiveLayout } from '@/components/layout/ResponsiveLayout';
 import { CategoryMarkets } from '@/components/market/CategoryMarkets';
 
-export default function CategoryPage() {
-  const params = useParams();
-  const category = params.category as string;
+export const dynamic = 'force-static';
+
+export async function generateStaticParams() {
+  const locales = ['en', 'zh', 'ja', 'ko'];
+  const categories = ['crypto', 'sports', 'politics', 'economy', 'gaming', 'culture', 'tech'];
+  
+  const paths = [];
+  for (const locale of locales) {
+    for (const category of categories) {
+      paths.push({ locale, category });
+    }
+  }
+  return paths;
+}
+
+interface CategoryPageProps {
+  params: {
+    locale: string;
+    category: string;
+  };
+}
+
+export default function CategoryPage({ params }: CategoryPageProps) {
+  const { category } = params;
   const t = useTranslations('topics');
 
   return (

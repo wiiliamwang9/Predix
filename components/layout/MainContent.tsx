@@ -6,9 +6,10 @@ import { CategorySections } from '@/components/market/CategorySections';
 
 interface MainContentProps {
   topBarHeight?: number;
+  sidebarWidth?: number;
 }
 
-export function MainContent({  topBarHeight = 64 }: MainContentProps) {
+export function MainContent({ topBarHeight = 64, sidebarWidth }: MainContentProps) {
   const t = useTranslations('market');
 
   return (
