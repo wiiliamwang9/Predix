@@ -4,7 +4,10 @@ import { Inter } from 'next/font/google';
 import { WalletProvider } from '@/components/providers/WalletProvider';
 import '../globals.css';
 
-const inter = Inter({ subsets: ['latin'] });
+const inter = Inter({ 
+  subsets: ['latin'],
+  display: 'swap',
+});
 
 export default async function LocaleLayout({
   children,
@@ -16,8 +19,8 @@ export default async function LocaleLayout({
   const messages = await getMessages();
 
   return (
-    <html lang={locale}>
-      <body className={inter.className}>
+    <html lang={locale} suppressHydrationWarning>
+      <body className={inter.className} suppressHydrationWarning>
         <NextIntlClientProvider messages={messages}>
           <WalletProvider>
             {children}
