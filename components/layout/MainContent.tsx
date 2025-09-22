@@ -1,6 +1,6 @@
 'use client';
 
-import { useTranslations } from 'next-intl';
+import { useSimpleTranslation } from '@/lib/i18n-simple';
 import { TrendingPredictions } from '@/components/market/TrendingPredictions';
 import { CategorySections } from '@/components/market/CategorySections';
 
@@ -10,7 +10,7 @@ interface MainContentProps {
 }
 
 export function MainContent({ topBarHeight = 64, sidebarWidth }: MainContentProps) {
-  const t = useTranslations('market');
+  const { t } = useSimpleTranslation();
 
   return (
     <main 
@@ -25,10 +25,10 @@ export function MainContent({ topBarHeight = 64, sidebarWidth }: MainContentProp
         <section className="mb-8">
           <div className="mb-6">
             <h1 className="text-3xl font-bold text-foreground mb-2">
-              {t('trending')}
+              {t('market.trending')}
             </h1>
             <p className="text-muted-foreground">
-              Most active prediction markets right now
+              {t('market.mostActive')}
             </p>
           </div>
           <TrendingPredictions />
@@ -38,10 +38,10 @@ export function MainContent({ topBarHeight = 64, sidebarWidth }: MainContentProp
         <section>
           <div className="mb-6">
             <h2 className="text-2xl font-bold text-foreground mb-2">
-              {t('categories')}
+              {t('market.categories')}
             </h2>
             <p className="text-muted-foreground">
-              Browse markets by topic
+              {t('market.browseByTopic')}
             </p>
           </div>
           <CategorySections />

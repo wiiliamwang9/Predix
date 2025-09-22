@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { useTranslations } from 'next-intl';
+import { useSimpleTranslation } from '@/lib/i18n-simple';
 import { Search, X } from 'lucide-react';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
@@ -13,7 +13,7 @@ interface SearchBarProps {
 }
 
 export function SearchBar({ className, onSearch }: SearchBarProps) {
-  const t = useTranslations('search');
+  const { t } = useSimpleTranslation();
   const [query, setQuery] = useState('');
   const [isFocused, setIsFocused] = useState(false);
 
@@ -43,7 +43,7 @@ export function SearchBar({ className, onSearch }: SearchBarProps) {
         <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground w-5 h-5" />
         <Input
           type="text"
-          placeholder={t('placeholder')}
+          placeholder={t('search.placeholder')}
           value={query}
           onChange={(e) => setQuery(e.target.value)}
           onKeyPress={handleKeyPress}
@@ -76,7 +76,7 @@ export function SearchBar({ className, onSearch }: SearchBarProps) {
           {/* Recent searches */}
           <div className="p-3">
             <h4 className="text-sm font-medium text-popover-foreground mb-2">
-              {t('recentSearches')}
+              {t('search.recentSearches')}
             </h4>
             <div className="space-y-1">
               {['Bitcoin price prediction', 'NFL championship', 'Election 2024'].map((search) => (
@@ -94,7 +94,7 @@ export function SearchBar({ className, onSearch }: SearchBarProps) {
           {/* No results state */}
           {query && (
             <div className="p-6 text-center">
-              <p className="text-sm text-muted-foreground">{t('noResults')}</p>
+              <p className="text-sm text-muted-foreground">{t('search.noResults')}</p>
             </div>
           )}
         </div>

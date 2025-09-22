@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { useTranslations } from 'next-intl';
+import { useSimpleTranslation } from '@/lib/i18n-simple';
 import { X, TrendingUp, TrendingDown, Clock, Users, ExternalLink } from 'lucide-react';
 import { Market } from '@/types';
 import { Button } from '@/components/ui/button';
@@ -18,7 +18,7 @@ interface BetModalProps {
 }
 
 export function BetModal({ isOpen, onClose, market, selectedOutcome, onBet }: BetModalProps) {
-  const t = useTranslations('bet');
+  const { t } = useSimpleTranslation();
   const [betAmount, setBetAmount] = useState('');
   const [isLoading, setIsLoading] = useState(false);
 
@@ -69,7 +69,7 @@ export function BetModal({ isOpen, onClose, market, selectedOutcome, onBet }: Be
             {/* Header */}
             <div className="sticky top-0 bg-background  p-6">
               <div className="flex items-center justify-between">
-                <h2 className="text-xl font-semibold text-foreground">{t('placeBet')}</h2>
+                <h2 className="text-xl font-semibold text-foreground">{t('bet.placeBet')}</h2>
                 <Button variant="ghost" size="icon" onClick={onClose}>
                   <X className="w-5 h-5" />
                 </Button>
@@ -97,7 +97,7 @@ export function BetModal({ isOpen, onClose, market, selectedOutcome, onBet }: Be
                   <div className="text-2xl font-bold text-foreground">
                     {formatCurrency(market.totalVolume, '')}
                   </div>
-                  <div className="text-sm text-muted-foreground">{t('volume')}</div>
+                  <div className="text-sm text-muted-foreground">{t('bet.volume')}</div>
                 </div>
                 <div>
                   <div className="text-2xl font-bold text-foreground flex items-center justify-center">
@@ -166,7 +166,7 @@ export function BetModal({ isOpen, onClose, market, selectedOutcome, onBet }: Be
 
             {/* Bet Amount */}
             <div className="p-6 ">
-              <h3 className="font-medium mb-4 text-foreground">{t('amount')}</h3>
+              <h3 className="font-medium mb-4 text-foreground">{t('bet.amount')}</h3>
               <div className="space-y-4">
                 <div>
                   <Input
@@ -197,7 +197,7 @@ export function BetModal({ isOpen, onClose, market, selectedOutcome, onBet }: Be
             {/* Expected Returns */}
             {betAmount && parseFloat(betAmount) > 0 && (
               <div className="p-6  bg-muted/30">
-                <h3 className="font-medium mb-4 text-foreground">{t('expectedReturn')}</h3>
+                <h3 className="font-medium mb-4 text-foreground">{t('bet.expectedReturn')}</h3>
                 <div className="space-y-3">
                   <div className="flex justify-between">
                     <span className="text-muted-foreground">Your bet:</span>

@@ -1,6 +1,6 @@
 'use client';
 
-import { useTranslations } from 'next-intl';
+import { useSimpleTranslation } from '@/lib/i18n-simple';
 import { Button } from '@/components/ui/button';
 import { ChevronDown } from 'lucide-react';
 import {
@@ -11,13 +11,13 @@ import {
 } from '@/components/ui/dropdown-menu';
 
 export function LeaderboardHeader() {
-  const t = useTranslations('leaderboard');
+  const { t } = useSimpleTranslation();
 
   return (
     <div className="mb-8">
       {/* Page Title */}
       <h1 className="text-4xl font-bold text-gray-900 mb-6">
-        {t('title')}
+        {t('leaderboard.title')}
       </h1>
 
       {/* Season Selector */}

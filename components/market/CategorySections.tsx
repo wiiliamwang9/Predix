@@ -1,11 +1,11 @@
 'use client';
 
-import { useTranslations } from 'next-intl';
+import { useSimpleTranslation } from '@/lib/i18n-simple';
 import { sidebarConfig } from '@/lib/config';
 import { CategorySection } from './CategorySection';
 
 export function CategorySections() {
-  const t = useTranslations('topics');
+  const { t } = useSimpleTranslation();
 
   return (
     <div className="space-y-8">
@@ -13,7 +13,7 @@ export function CategorySections() {
         <CategorySection
           key={topic.id}
           category={topic.id}
-          title={t(topic.id)}
+          title={t(`topics.${topic.id}`)}
           icon={topic.icon}
           color={topic.color}
         />

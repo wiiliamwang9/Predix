@@ -1,6 +1,6 @@
 'use client';
 
-import { useLocale } from 'next-intl';
+import { useSimpleTranslation } from '@/lib/i18n-simple';
 import { useRouter, usePathname } from 'next/navigation';
 import { ChevronDown, Globe } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -19,14 +19,12 @@ const languages = [
 ];
 
 export function LanguageSwitcher() {
-  const locale = useLocale();
+  const { locale, changeLocale } = useSimpleTranslation();
   const router = useRouter();
   const pathname = usePathname();
 
   const handleLanguageChange = (newLocale: string) => {
-    const pathWithoutLocale = pathname.replace(`/${locale}`, '');
-    const newPath = `/${newLocale}${pathWithoutLocale}`;
-    router.push(newPath);
+    changeLocale(newLocale as any);
   };
 
   const currentLanguage = languages.find(lang => lang.code === locale);

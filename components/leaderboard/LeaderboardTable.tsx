@@ -1,6 +1,6 @@
 'use client';
 
-import { useTranslations } from 'next-intl';
+import { useSimpleTranslation } from '@/lib/i18n-simple';
 import { Avatar, AvatarFallback } from '@/components/ui/avatar';
 
 // Mock data for demonstration
@@ -44,7 +44,7 @@ const mockLeaderboardData = [
 ];
 
 export function LeaderboardTable() {
-  const t = useTranslations('leaderboard');
+  const { t } = useSimpleTranslation();
 
   const formatNumber = (num: number) => {
     if (num >= 1000000) {
@@ -61,8 +61,8 @@ export function LeaderboardTable() {
       {/* Table Header */}
       <div className="bg-muted px-6 py-4">
         <div className="grid grid-cols-8 gap-4 text-sm font-semibold text-muted-foreground uppercase tracking-wider">
-          <div>{t('rank')}</div>
-          <div className="col-span-2">{t('user')}</div>
+          <div>{t('leaderboard.rank')}</div>
+          <div className="col-span-2">{t('leaderboard.user')}</div>
           <div className="text-right">$ SCORE</div>
           <div className="text-right">REF SCORE</div>
           <div className="text-right">PTS SCORE</div>

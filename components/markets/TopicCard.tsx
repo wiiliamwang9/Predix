@@ -1,6 +1,6 @@
 'use client';
 
-import { useTranslations } from 'next-intl';
+import { useSimpleTranslation } from '@/lib/i18n-simple';
 
 interface TopicCardProps {
   topic: {
@@ -13,7 +13,7 @@ interface TopicCardProps {
 }
 
 export function TopicCard({ topic, onClick }: TopicCardProps) {
-  const tTopics = useTranslations('topics');
+  const { t } = useSimpleTranslation();
 
   // Mock market count for each topic
   const getMarketCount = (topicId: string) => {
@@ -45,7 +45,7 @@ export function TopicCard({ topic, onClick }: TopicCardProps) {
 
         {/* Title */}
         <h3 className="text-xl font-bold text-foreground mb-2 group-hover:text-primary transition-colors">
-          {tTopics(topic.id)}
+          {t(`topics.${topic.id}`)}
         </h3>
 
         {/* Market Count */}

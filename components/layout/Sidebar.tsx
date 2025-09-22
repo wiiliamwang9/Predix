@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
-import { useTranslations } from 'next-intl';
+import { useSimpleTranslation } from '@/lib/i18n-simple';
 import { usePathname } from 'next/navigation';
 import { 
   Home, 
@@ -18,7 +18,7 @@ import {
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
 import { Separator } from '@/components/ui/separator';
-import { sidebarConfig } from '@/lib/config';
+// Remove external config dependency
 
 const icons = {
   Home,
@@ -37,9 +37,33 @@ interface SidebarProps {
 }
 
 export function Sidebar({ isCollapsed = false, onToggle, onClose }: SidebarProps) {
-  const t = useTranslations('navigation');
-  const tTopics = useTranslations('topics');
+  const { t } = useSimpleTranslation();
   const pathname = usePathname();
+
+  // Define navigation items
+  const mainNav = [
+    { id: 'home', label: t('nav.home'), href: '/', icon: 'Home' },
+    { id: 'markets', label: t('nav.markets'), href: '/markets', icon: 'BarChart3' },
+    { id: 'leaderboard', label: t('nav.leaderboard'), href: '/leaderboard', icon: 'Trophy' },
+    { id: 'news', label: t('nav.news'), href: '/news', icon: 'Newspaper' }
+  ];
+
+  const topics = [
+    { id: 'crypto', label: t('topics.crypto'), icon: '₿', color: '#f7931a' },
+    { id: 'sports', label: t('topics.sports'), icon: '⚽', color: '#22c55e' },
+    { id: 'politics', label: t('topics.politics'), icon: '🗳️', color: '#dc2626' },
+    { id: 'economy', label: t('topics.economy'), icon: '📈', color: '#059669' },
+    { id: 'gaming', label: t('topics.gaming'), icon: '🎮', color: '#8b5cf6' },
+    { id: 'culture', label: t('topics.culture'), icon: '🎭', color: '#f59e0b' },
+    { id: 'tech', label: t('topics.tech'), icon: '🔬', color: '#3b82f6' }
+  ];
+
+  const footer = [
+    { id: 'footer.about', href: '/about' },
+    { id: 'footer.privacy', href: '/privacy' },
+    { id: 'footer.terms', href: '/terms' },
+    { id: 'footer.contact', href: '/contact' }
+  ];
 
   return (
     <aside className={cn(
@@ -70,7 +94,7 @@ export function Sidebar({ isCollapsed = false, onToggle, onClose }: SidebarProps
       <nav className="p-4 space-y-6">
         {/* Main Navigation */}
         <div className="space-y-2">
-          {sidebarConfig.mainNav.map((item) => {
+          {mainNav.map((item) => {
             const Icon = icons[item.icon as keyof typeof icons];
             const isActive = pathname === item.href;
             
@@ -87,7 +111,7 @@ export function Sidebar({ isCollapsed = false, onToggle, onClose }: SidebarProps
               >
                 <Icon className="w-5 h-5" />
                 {!isCollapsed && (
-                  <span className="font-medium">{t(item.id)}</span>
+                  <span className="font-medium">{item.label}</span>
                 )}
               </Link>
             );
@@ -100,10 +124,10 @@ export function Sidebar({ isCollapsed = false, onToggle, onClose }: SidebarProps
         <div className="space-y-2">
           {!isCollapsed && (
             <h3 className="text-xs font-semibold text-muted-foreground uppercase tracking-wider px-3">
-              {t('topicsLabel')}
+              Topics
             </h3>
           )}
-          {sidebarConfig.topics.map((topic) => (
+          {topics.map((topic) => (
             <button
               key={topic.id}
               onClick={() => {
@@ -116,7 +140,7 @@ export function Sidebar({ isCollapsed = false, onToggle, onClose }: SidebarProps
             >
               <span className="text-lg">{topic.icon}</span>
               {!isCollapsed && (
-                <span className="font-medium">{tTopics(topic.id)}</span>
+                <span className="font-medium">{topic.label}</span>
               )}
             </button>
           ))}
@@ -128,7 +152,7 @@ export function Sidebar({ isCollapsed = false, onToggle, onClose }: SidebarProps
       <div className="absolute bottom-0 left-0 right-0 p-4">
         {!isCollapsed && (
           <div className="space-y-2">
-            {sidebarConfig.footer.map((item) => (
+            {footer.map((item) => (
               <Link
                 key={item.id}
                 href={item.href}

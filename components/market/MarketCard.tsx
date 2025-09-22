@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import Image from 'next/image';
-import { useTranslations } from 'next-intl';
+import { useSimpleTranslation } from '@/lib/i18n-simple';
 import { Clock, Users, TrendingUp, TrendingDown } from 'lucide-react';
 import { Market } from '@/types';
 import { Button } from '@/components/ui/button';
@@ -17,7 +17,7 @@ interface MarketCardProps {
 }
 
 export function MarketCard({ market, onUpVote, onDownVote, onCardClick }: MarketCardProps) {
-  const t = useTranslations('market');
+  const { t } = useSimpleTranslation();
   const [showBetModal, setShowBetModal] = useState(false);
   const [selectedOutcome, setSelectedOutcome] = useState<'yes' | 'no'>('yes');
 
@@ -77,7 +77,7 @@ export function MarketCard({ market, onUpVote, onDownVote, onCardClick }: Market
           <div className="flex items-center justify-between mb-4 text-sm text-muted-foreground">
             <div className="flex items-center space-x-1">
               <span className="font-medium">{formatCurrency(market.totalVolume)}</span>
-              <span className="text-muted-foreground opacity-70">{t('volume')}</span>
+              <span className="text-muted-foreground opacity-70">{t('market.volume')}</span>
             </div>
             <div className="flex items-center space-x-1">
               <Users className="w-4 h-4" />
