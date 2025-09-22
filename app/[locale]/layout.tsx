@@ -1,5 +1,4 @@
 import { NextIntlClientProvider } from 'next-intl';
-import { getMessages } from 'next-intl/server';
 import { Inter } from 'next/font/google';
 import { WalletProvider } from '@/components/providers/WalletProvider';
 import '../globals.css';
@@ -16,12 +15,19 @@ export default async function LocaleLayout({
   children: React.ReactNode;
   params: { locale: string };
 }) {
-  const messages = await getMessages();
+  // For static export, load messages directly
+  let messages;
+  try {
+    messages = (await import(`../../messages/${locale}.json`)).default;
+  } catch (error) {
+    // Fallback to English if locale not found
+    messages = (await import(`../../messages/en.json`)).default;
+  }
 
   return (
     <html lang={locale} suppressHydrationWarning>
       <body className={inter.className} suppressHydrationWarning>
-        <NextIntlClientProvider messages={messages}>
+        <NextIntlClientProvider messages={messages} locale={locale}>
           <WalletProvider>
             {children}
           </WalletProvider>
