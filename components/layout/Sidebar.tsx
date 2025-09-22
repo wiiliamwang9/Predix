@@ -104,16 +104,21 @@ export function Sidebar({ isCollapsed = false, onToggle, onClose }: SidebarProps
             </h3>
           )}
           {sidebarConfig.topics.map((topic) => (
-            <Link
+            <button
               key={topic.id}
-              href={`/markets/${topic.id}`}
-              className="flex items-center space-x-3 px-3 py-2 rounded-lg text-muted-foreground hover:bg-accent hover:text-accent-foreground transition-all duration-200"
+              onClick={() => {
+                const element = document.getElementById(`category-${topic.id}`);
+                if (element) {
+                  element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+              }}
+              className="w-full flex items-center space-x-3 px-3 py-2 rounded-lg text-muted-foreground hover:bg-accent hover:text-accent-foreground transition-all duration-200"
             >
               <span className="text-lg">{topic.icon}</span>
               {!isCollapsed && (
                 <span className="font-medium">{tTopics(topic.id)}</span>
               )}
-            </Link>
+            </button>
           ))}
         </div>
 
